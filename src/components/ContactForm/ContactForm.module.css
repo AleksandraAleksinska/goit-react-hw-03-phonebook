@@ -1,0 +1,23 @@
+.form {
+    border: 1px solid black;
+    padding: 15px;
+    margin: 15px;
+    width: 350px;
+}
+
+.formLabel {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.formButton {
+    margin-top: 10px;
+    border-radius: 5px;
+    border-color: aliceblue;
+    padding-block: 4px;
+    padding-inline: 8px;
+    cursor: pointer;
+}

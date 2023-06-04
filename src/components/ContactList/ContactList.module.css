@@ -1,0 +1,14 @@
+.formButton {
+    margin-left: 10px;
+    border-radius: 5px;
+    border-color: aliceblue;
+    padding-block: 1px;
+    padding-inline: 8px;
+    cursor: pointer;
+}
+
+.listItem {
+    display: flex;
+    justify-content: space-between;
+    width: 350px;
+}
