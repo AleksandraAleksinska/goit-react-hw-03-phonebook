@@ -9,27 +9,20 @@ export default class ContactList extends Component {
 
   render() {
 
-    const { contacts, deleteContact } = this.props;
+    const { deleteContact } = this.props;
+    const contactList = JSON.parse(localStorage.getItem('contacts'));
     
     return (
 
         <ul>            
-            { contacts.map((contact) => 
+            { contactList ? contactList.map((contact) => 
 
-              <li className={css.listItem} key={nanoid()}>- {contact.name}: {contact.number} <button className={css.formButton} type='button' onClick={()=>deleteContact(contact.id)}>Delete</button> </li>
-
-             ) }    
-        
+              <li className={css.listItem} key={nanoid()}>- {contact.name}: {contact.number} <button className={css.formButton} type='button' onClick={()=>deleteContact(contact.id)}>Delete</button> </li>) : ''}    
         </ul>
     )
   }
 }
 
 ContactList.propTypes ={
-  contact: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired
-  })),
   deleteContact: PropTypes.func.isRequired
 }

@@ -38,6 +38,10 @@ export class App extends Component {
     return filter ? (filteredContacts.filter(contact => contact.name.toLowerCase().includes(filter.toLocaleLowerCase()))) : contacts 
   }
 
+  sendContactsToLocalStorage = (list) => {
+
+    localStorage.setItem('contacts', JSON.stringify(list))
+  }
   
   handleSubmit = (e) => {
     e.preventDefault();
@@ -48,12 +52,14 @@ export class App extends Component {
       alert(name+' is already in contacts');
     }
     else {
-      this.setState({contacts: [...contacts, {
+      const contactsAfterAdd = [...contacts, {
         name: name,
         number: number,
         id: nanoid()
       }
-    ]});
+    ]
+      this.setState({contacts: contactsAfterAdd });
+      this.sendContactsToLocalStorage(contactsAfterAdd)
     };
         
     form.reset()
@@ -63,7 +69,8 @@ export class App extends Component {
     const { contacts } = this.state
     
     const contactsAfterDelete = contacts.filter(contact => contact.id !== id)
-    this.setState({contacts: contactsAfterDelete})    
+    this.setState({contacts: contactsAfterDelete}) 
+    this.sendContactsToLocalStorage(contactsAfterDelete)
   }
 
   render() {  
