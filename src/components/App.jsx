@@ -22,6 +22,13 @@ export class App extends Component {
     number: ''    
   }
 
+  // static getDerivedStateFromProps() {
+  //   if (localStorage.getItem('contacts') === null) {
+  //   localStorage.setItem('contacts', JSON.stringify([]));
+  //   }
+
+  // }
+
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value })
@@ -32,10 +39,13 @@ export class App extends Component {
    }, 300)
     
   getFilteredContacts = () => {
-    const { contacts, filter } = this.state
-    const filteredContacts = [...contacts];
+    const { filter } = this.state;
 
-    return filter ? (filteredContacts.filter(contact => contact.name.toLowerCase().includes(filter.toLocaleLowerCase()))) : contacts 
+    !JSON.parse(localStorage.getItem('contacts')) && localStorage.setItem('contacts', JSON.stringify([]))
+    
+    const contactList = JSON.parse(localStorage.getItem('contacts'))
+    const filteredContacts = [...contactList];
+    return filter ? (filteredContacts.filter(contact => contact.name.toLowerCase().includes(filter.toLocaleLowerCase()))) : contactList 
   }
 
   sendContactsToLocalStorage = (list) => {
@@ -61,7 +71,7 @@ export class App extends Component {
       this.setState({contacts: contactsAfterAdd });
       this.sendContactsToLocalStorage(contactsAfterAdd)
     };
-        
+    console.log(contacts)    
     form.reset()
   }
   
@@ -71,7 +81,10 @@ export class App extends Component {
     const contactsAfterDelete = contacts.filter(contact => contact.id !== id)
     this.setState({contacts: contactsAfterDelete}) 
     this.sendContactsToLocalStorage(contactsAfterDelete)
+    console.log(contacts) 
   }
+
+  
 
   render() {  
     
