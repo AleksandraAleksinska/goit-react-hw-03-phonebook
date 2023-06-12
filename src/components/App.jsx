@@ -22,12 +22,18 @@ export class App extends Component {
     number: ''    
   }
 
-  // static getDerivedStateFromProps() {
-  //   if (localStorage.getItem('contacts') === null) {
-  //   localStorage.setItem('contacts', JSON.stringify([]));
-  //   }
+  componentDidMount() {
+    const contactList = JSON.parse(localStorage.getItem('contacts'));
+    if (!contactList) {
+      localStorage.setItem('contacts', JSON.stringify([]));
+    } else {
+      this.setState({ contacts: contactList });
+    }
+  }
 
-  // }
+  componentDidUpdate() {
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }
 
   handleChange = (e) => {
     const { name, value } = e.target;
